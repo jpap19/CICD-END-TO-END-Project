@@ -1,5 +1,3 @@
-# 
-
 <h1>CI-END-TO-END-Project In Production Environment</h1>
 
 <h2>Description</h2>
@@ -48,7 +46,22 @@ Initialize the repository with a README file, Click on the "Create repository" b
 
 STEP 2:  Create an AWS CodePipeline.
 
-Auto sclaiing group required a launch template for its creation. Let create a launch template with security group where we will open ssh port and 8000 (for the python application), accessible from anywhere.
+In this step, we'll create an AWS CodePipeline to automate the continuous integration process for our Python application. AWS CodePipeline will orchestrate the flow of changes from our GitHub repository to the deployment of our application.
+
+To set it up, we will follow the following steps:
+
+- From the AWS Management Console, we will navigate to the AWS CodePipeline service.
+- Click on the "Create pipeline" button.
+- Provide a name for our pipeline and click on the "Next" button.
+- For the source stage, select "GitHub" as the source provider.
+- Connect your GitHub account to AWS CodePipeline and select our repository.
+- Choose the branch we want to use for our pipeline.
+- In the build stage, select "AWS CodeBuild" as the build provider.
+- Create a new CodeBuild project by clicking on the "Create project" button.
+- Configure the CodeBuild project with the necessary settings for your Python application, such as the build environment,  build commands, and artifacts.
+- Save the CodeBuild project and go back to CodePipeline.
+- Continue configuring the pipeline stages, such as deploying our application using AWS Elastic Beanstalk or any other suitable deployment option.
+- Review the pipeline configuration and click on the "Create pipeline" button to create your AWS CodePipeline.
 
  2.1 Creation of the launch template: <br/>
 
