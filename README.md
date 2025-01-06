@@ -99,7 +99,7 @@ as follow :  /myapp/docker-credentials/username, /myapp/docker-credentials/passw
 
 From the aws code build project, select our project and click on start build, we should encounter a failure due to permission missing in our code build service role:
 
-2.3.1 Code build failed due to permission denied due to ....
+2.3.1 Code build failed due to permission denied, caused by missing policy.
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
@@ -115,6 +115,11 @@ From the aws code build project, select our project and click on start build, we
 <br />
 
 2.3.4 Code build successful after troubleshooting service role policy added, environment privilege enabled.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+2.3.4 Image pushed to docker hub after project succefull in codebuild.
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
@@ -139,7 +144,7 @@ For the source stage, select "GitHub" as the source provider, Connect your GitHu
 <br />
 <br />
 
- In the build stage, select "AWS CodeBuild" as the build provider, and select our CodeBuild project we created prewviously "simple-python-flask-service"
+ In the build stage, select "AWS CodeBuild" as the build provider, and select our CodeBuild project we created prewviously "simple-python-app"
 
 3.1.3 Creation of our AWS CodePipeline Step 3.
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
@@ -156,13 +161,35 @@ Continue configuring the pipeline stages, such as deploying your application usi
 
 STEP 4: Trigger the CI Process.
 
-3.1 Creation of the launch template: <br/>
+From our github repository, let navigate to the simple python application and simply add a space at the end of the source code as shown below. commit the change.
+
+4.1 Modification in the python app code source: <br/>
 
 3.1.1 From the EC2 dasboard, select launch template, provide a name, Choose the OS type.
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 
+As soon as the change is made in the python source code from our github account, it will trigger the pipeline to start executing
+
+4.1.1 The modification made has triggerred our pipeline to start.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+Then it will complete the build.
+
+4.1.2 Pipeline executed after change in the python app code source.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+An new image will be pushed to our docker hub account.
+
+4.1.2 Pipeline executed after change in the python app code source.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
 
 CONCLUSION: <br/>
 
