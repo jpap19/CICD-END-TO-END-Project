@@ -26,7 +26,7 @@ This is the high level overview of what we are going to setup in this Project La
 Then invoque codeploy to deploy the application on a virtual machine
 
 <h2>Project high level overview :</h2>
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Design1.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/project%20overview.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 <p align="center">
