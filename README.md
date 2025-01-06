@@ -1,4 +1,4 @@
-<h1>CI-END-TO-END-Project In Production Environment</h1>
+<h1>CICD-END-TO-END-Project In Production Environment</h1>
 
 <h2>Description</h2>
 In this project , We will implement an end to end CICD solution on AWS using code build and code pipeline.
@@ -20,15 +20,18 @@ STEP 3:  Create an AWS CodePipeline.
 
 STEP 4: Trigger the CI Process
 
-<h2>Project high level overview :</h2>
+STEP 5: Deploy the application on a virtual machine using Codedeploy
 
-This is the high level overview of what we are going to setup in this Project Lab:
+This is the high level overview of what we are going to setup in this Project Lab: We will be using codepipeline as an orchestrotor to invoque codebuild to build our application and push it to dockerhub, 
+Then invoque codeploy to deploy the application on a virtual machine
+
+<h2>Project high level overview :</h2>
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Design1.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 <p align="center">
 
-This diagram provides an overview of the resources included in this project. We will implement an end to end CI solution on AWS using code build and code pipeline. We will use github as repositores source instead of code commnit..
+This diagram provides an overview of the resources included in this project. We will implement an end to end CICD solution on AWS using codebuild and codepipeline and codedeploy. We will use github as repositores source instead of code commnit..
 
 <h2>Project  Implementation:</h2>
  
@@ -187,6 +190,21 @@ Then it will complete the build.
 An new image will be pushed to our docker hub account.
 
 4.1.2 Pipeline executed after change in the python app code source.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+
+STEP 5:  Deploy the application on a virtual machine using Codedeploy
+
+
+
+5.1 The modification made has triggerred our pipeline to start.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.2 The modification made has triggerred our pipeline to start.
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
