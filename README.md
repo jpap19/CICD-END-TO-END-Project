@@ -194,20 +194,135 @@ An new image will be pushed to our docker hub account.
 <br />
 <br />
 
-
 STEP 5:  Deploy the application on a virtual machine using Codedeploy
+ From the AWS Web console, navigate to codedeploy and click on create application. 
 
+5.1 Application created in codedeploy.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+ 
+ After creating the application in codedeploy, we need to created the virtual machine on which the application will be deployed. we will make sure we add a Tag name that will be used by codedeploy.
 
-
-5.1 The modification made has triggerred our pipeline to start.
+5.2 Virtual machine (EC2 instance) created with Tags name.
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 
-5.2 The modification made has triggerred our pipeline to start.
+We need to install a codeploy agent on our virtual machine. for that we need to login into the EC2 instance.
+
+5.2.1 Login succesful to the Virtual machine (EC2 instance).
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
+
+We will follow the documentation on how to Install the CodeDeploy agent for Ubuntu Server. for that we need to run the following commands:
+
+sudo apt update
+sudo apt install ruby-full
+sudo apt install wget
+cd /home/ubuntu
+wget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install  
+(for us it will be: wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install)
+chmod +x ./install
+sudo ./install auto
+sudo service codedeploy-agent status
+
+5.2.1 Steps to Install the CodeDeploy agent for Ubuntu Server
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.2.2 Agent installation on the EC2 instance step 1.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.2.2 Agent installed on the EC2 instance and service started.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.3 Codeploy Agent installed on the Virtual machine (EC2 instance).
+Now we need to create a role and assign it to our ec2 instance
+
+5.3.1 Codedeploy role created and assign to the ec2-instance.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+Now we need to retart the codedeploy agent service on our virtual machine by running the command "sudo service codedeploy-agent restart"
+5.3.2 Agent service on our virtual machine.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5 CodeDeploy Configuration
+
+At this stage, we created our codeploy and iam service role for it; created a virtual machine, installed a codedploy agent onto it and attached the iam role to it.
+Now we need to setup the connection between codeploy and the virtual machine (EC2-instance). Before that we will need to add EC2-full access to the ec2-codeploy role we created.
+From the codeDeploy console, choose the application we created, and create a deployment group, and provide the arn of the service role we created.
+
+5.5.1 EC2-full access added to the ec2-codeploy role
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.1 CodeDeploy DeploymentGroup creation step 1
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.2 CodeDeploy DeploymentGroup creation step 2
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+
+5.5.3.1 CodeDeploy DeploymentGroup creation step 3 (creation failed due to assume role mising.
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.3.2 Add the trust policy to allow AWS Code Deploy service to assume this role. 
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.3 CodeDeploy DeploymentGroup created
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+Now that the codeDeploy configuration is complete, we need to create the deployment itself
+From codedeploy application, select our python application and go to the deployment tab, select the deployment group and connect to our Github account where the repository of the appplication code source is stored.
+
+5.5.1 Deployment creation for our application from codeDeploy step 1
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+Then provide the repository name and reference the commit ID from that repository on our github account
+
+5.5.1 Deployment creation for our application from codeDeploy step 2
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+The remaining options are not needed at this time, simple click on create to finalize our deployemnt creation
+
+5.5.1.1 Deployment creation in progress: Successfully connect to our github
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+After successfully connecting to the github repository, our deployment will fail. The reason is because it not able to fetch the application source code file.
+To fix that, we need to 
+
+5.5.1.2 Deployment creation is failing after connecting to the github account
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
 
 CONCLUSION: <br/>
 
