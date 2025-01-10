@@ -22,6 +22,8 @@ STEP 4: Trigger the CI Process
 
 STEP 5: Deploy the application on a virtual machine using Codedeploy
 
+STEP 6: Integration of CodeDeply Stage in our Pipeline.
+
 This is the high level overview of what we are going to setup in this Project Lab: We will be using codepipeline as an orchestrotor to invoque codebuild to build our application and push it to dockerhub, 
 Then invoque codeploy to deploy the application on a virtual machine
 
@@ -278,6 +280,7 @@ From the codeDeploy console, choose the application we created, and create a dep
 <br />
 <br />
 
+5.5.3 CodeDeploy DeploymentGroup creation failure Observed
 
 5.5.3.1 CodeDeploy DeploymentGroup creation step 3 (creation failed due to assume role mising.
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
@@ -289,36 +292,117 @@ From the codeDeploy console, choose the application we created, and create a dep
 <br />
 <br />
 
-5.5.3 CodeDeploy DeploymentGroup created
+5.5.3.3 CodeDeploy DeploymentGroup created
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 
+5.5.4 Deployment creation Implementation
+
 Now that the codeDeploy configuration is complete, we need to create the deployment itself
 From codedeploy application, select our python application and go to the deployment tab, select the deployment group and connect to our Github account where the repository of the appplication code source is stored.
 
-5.5.1 Deployment creation for our application from codeDeploy step 1
+5.5.4.1 Deployment creation for our application from codeDeploy step 1
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 
 Then provide the repository name and reference the commit ID from that repository on our github account
 
-5.5.1 Deployment creation for our application from codeDeploy step 2
+5.5.4.2 Deployment creation for our application from codeDeploy step 2
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 The remaining options are not needed at this time, simple click on create to finalize our deployemnt creation
 
-5.5.1.1 Deployment creation in progress: Successfully connect to our github
+5.5.4.3 Deployment creation in progress: Successfully connect to our github
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
 
 After successfully connecting to the github repository, our deployment will fail. The reason is because it not able to fetch the application source code file.
-To fix that, we need to 
+To fix that, the appspec.yml file of our python application needs to be put at the root level of the github directory as shown below:
 
-5.5.1.2 Deployment creation is failing after connecting to the github account
+5.5.4.4 Python app files put at the root level of the github
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+The appspec.yml file will run our application, It will connect to our dockerhub account to pull the image using the start_container.sh file as showing below: for that we will need to install docker on our virtual machine
+Docker will be installed on the vm using the command: sudo apt install docker.io -y.
+
+5.5.4.5 Deployment succesfull completed:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.5 CodePipeline Integration with our Codeploy
+
+We need to go our pipeline created earlier, click on edit and  then add a stage for codeploy, reference the deployment group and our python application name.
+
+5.5.5.1 Adding codedploy stage to our pipeline step 1
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.5.1 Adding codedploy stage to our pipeline step 2
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+Now let make a modification to one of our file ( the start_container.sh): add a space
+
+5.5.5.1 Adding a space to our start_container.sh file and commiting the change in our github account:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+The change made(adding just a space in the file above) will trigger the pipeline and continue until running the codedploy stage
+
+5.5.5.2 Codedeploy stage has triggered our pipeline to run:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+The codedeploy stage has failed after the build was successfull and the image pushed to dockerhub.
+
+5.5.5.2 Codedeploy stage has failed during the pipeline to running: Not permission to access S3
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+ We need to add the S3 Full access permission to our codepipeline role
+
+ 5.5.5.2 S3 Full access permission to our codepipeline role
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+5.5.5.3 Codedeploy stage has been run and completed in our pipeline:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+STEP 6: Integration of CodeDeply Stage in our Pipeline.
+
+Now from our pipeline, we need to add a stage called "CodeDeploy", make a modification to our source code and watch the the whole pipeline triggered and complete until deployment.
+
+6.1 Adding Codedeploy stage to our pipeline Step 1:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+6.1 Adding Codedeploy stage to our pipeline Step 2:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+6.1 The entire pipeline triggered and completed until deployment Step 1:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<br />
+<br />
+
+6.1 The entire pipeline triggered and completed until deployment Step 2:
 <img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
 <br />
 <br />
@@ -326,8 +410,9 @@ To fix that, we need to
 
 CONCLUSION: <br/>
 
-In this activity, we have set up a home lab using Elastic SIEM and a Kali VM. We forwarded data from the Kali VM to the SIEM using the Elastic Beats agent, generated security events on the Kali VM using Nmap, and queried and analyzed the logs in the SIEM using the Elastic web interface. We also created a dashboard to visualize security events and then created an alert to detect security events.
+In this activity, we have implemented an end to end CICD AWS solution, using Github as code source provider, Code pipeline as our orchestrator to imvoque Code build for our buiding stage, push the image to our dockerhub account.
 
+Code pipeline also invoque code deploy to deploy the python application onto a virtual machine (EC2 server). The whole process was successfull.
 
 <!--
  ```diff
