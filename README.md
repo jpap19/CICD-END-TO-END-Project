@@ -368,7 +368,7 @@ We need to go our pipeline created earlier, click on edit and  then add a stage 
 <br />
 
 6.2 Adding Codedeploy stage to our pipeline Step 2:
-<img src="hhttps://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20Codedeploy%20stage%20to%20our%20pipeline%20Step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20Codedeploy%20stage%20to%20our%20pipeline%20Step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -402,12 +402,7 @@ After adding s3 permission, we have release the change for our pipeline to run a
 <br />
 <br />
 
-6.7 The entire pipeline triggered and completed until deployment Step 1:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
-<br />
-<br />
-
-6.8 The entire pipeline triggered and completed until deployment Step 2:
+6.7 The entire pipeline triggered and completed until deployment Step 2:
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/The%20entire%20pipeline%20triggered%20and%20completed%20until%20deployment%20Step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
