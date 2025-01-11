@@ -376,12 +376,12 @@ Now let make a modification to one of our file ( the start_container.sh): we wil
 
 The change made(adding just a space in the file above) will trigger the pipeline and continue until running the codedploy stage
 
-6.3 The change made to the code source has triggered our pipeline to run as show below :
+6.3 The change made to the code source has triggered our pipeline to run as show below : Code built stage is ongoing.
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Codedeploy%20stage%20has%20triggered%20our%20pipeline%20to%20run.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-6.4 Code built stage is ongoing after the change has triggerred the pipeline to run:
+6.4 The code build stage was successfull and the image pushed to dockerhub but code deploy stage will fail:
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20codedploy%20stage%20to%20our%20pipeline%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
