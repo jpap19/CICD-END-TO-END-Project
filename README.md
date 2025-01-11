@@ -247,17 +247,10 @@ We need to install a codeploy agent on our virtual machine. for that we need to 
 
 5.2  Installation of CodeDeploy agent for Ubuntu Server
 
-We will follow the documentation on how to Install the CodeDeploy agent for Ubuntu Server. for that we need to run the following commands:
+We will follow the documentation on how to Install the CodeDeploy agent for Ubuntu Server. for that we need to run the following commands one at a time:
 
-sudo apt update
-sudo apt install ruby-full
-sudo apt install wget
-cd /home/ubuntu
-wget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install  
-(for us it will be: wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install)
-chmod +x ./install
-sudo ./install auto
-sudo service codedeploy-agent status
+sudo apt update - sudo apt install ruby-full - sudo apt install wget - cd /home/ubuntu - wget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install  
+(for us it will be: wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install)- chmod +x ./install - sudo ./install auto - sudo service codedeploy-agent status
 
 5.2.1 Agent installation on the EC2 instance step 1.
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codeploy%20agent%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
