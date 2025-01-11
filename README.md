@@ -1,7 +1,7 @@
 <h1>CICD-END-TO-END-Project In Production Environment</h1>
 
 <h2>Description</h2>
-In this project , We will implement an end to end CICD solution on AWS using code build and code pipeline.
+In this project , We will implement an end to end CICD solution on AWS using code build, code pipeline and code deploy.
 <br />
 
 <h2>Resources And Links Required:</h2>
