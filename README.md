@@ -272,7 +272,7 @@ choose modify IAM role and then select the code deploy role created previously a
 <br />
 <br />
 
-In order for our role modification to take effect, we need to retart the codedeploy agent service on our virtual machine by running the command "sudo service codedeploy-agent restart"
+In order for our role modification to take effect, we need to restart the codedeploy agent service on our virtual machine by running the command "sudo service codedeploy-agent restart"
 
 5.3.2 Code deploy agent running after service restart, following the role attached to our virtual machine ec2.
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/AgentRestartOnEc2after%20role%20attached.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
@@ -281,14 +281,9 @@ In order for our role modification to take effect, we need to retart the codedep
 
 5.5 CodeDeploy Configuration
 
-At this stage, we created our codeploy and iam service role for it; created a virtual machine, installed a codedploy agent onto it and attached the iam role to it.
-Now we need to setup the connection between codeploy and the virtual machine (EC2-instance). Before that we will need to add EC2-full access to the ec2-codeploy role we created.
-From the codeDeploy console, choose the application we created, and create a deployment group, and provide the arn of the service role we created.
+At this stage, we have already created our codeploy application, and the iam service role for it with EC2-full access; created a virtual machine, installed a codedploy agent We have also setup the connection between codeploy and the virtual machine (EC2-instance). Now we need to create and configure the deployment group.
 
-5.5.1 EC2-full access added to the ec2-codeploy role
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/ec2FullAccessAddedTo%20codeploy%20Iam%20Role.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
-<br />
-<br />
+From the codeDeploy console, we will choose the application we created, create a deployment group, and provide the arn of the service role we created.
 
 5.5.1 CodeDeploy DeploymentGroup creation step 1
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/CodeDeploy%20DeploymentGroup%20creation%20step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
