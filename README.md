@@ -383,26 +383,31 @@ The change made(adding just a space in the file above) will trigger the pipeline
 
 The codedeploy stage has failed after the build was successfull and the image pushed to dockerhub.
 
-6.4 Codedeploy stage has failed during the pipeline running: Not permission to access S3
+6.4 Code built stage is ongoing after the change has triggerred the pipeline to run:
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20codedploy%20stage%20to%20our%20pipeline%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+6.5 Codedeploy stage has failed during the pipeline running: Not permission to access S3
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Codedeploy%20failed%20in%20%20pipeline%20to%20running%20Not%20permission%20to%20access%20S3%20again.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
  We need to add the S3 Full access permission to our codepipeline role
 
-6.5 S3 Full access permission to our codepipeline role
+6.6 S3 Full access permission to our codepipeline role
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/s3Full%20Access%20Permission%20added.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 After adding s3 permission, we have release the change for our pipeline to run again
 
-6.6 Codedeploy stage has been run and completed in our pipeline:
+6.7 Codedeploy stage has been run and completed in our pipeline:
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/The%20entire%20pipeline%20triggered%20and%20completed%20until%20deployment%20Step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-6.7 The entire pipeline triggered and completed until deployment Step 2:
+6.8 The entire pipeline triggered and completed until deployment Step 2:
 <img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/The%20entire%20pipeline%20triggered%20and%20completed%20until%20deployment%20Step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
