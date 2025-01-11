@@ -28,7 +28,7 @@ This is the high level overview of what we are going to setup in this Project La
 Then invoque codeploy to deploy the application on a virtual machine
 
 <h2>Project high level overview :</h2>
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/project%20overview.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/project%20overview.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 <p align="center">
@@ -45,16 +45,10 @@ Initialize the repository with a README file, Click on the "Create repository" b
 
 1.1 Simple Python Application Uploaded to a github repository: <br/>
 
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
- 2.1 Creation of the launch template: <br/>
-
-2.1.1 From the EC2 dasboard, select launch template, provide a name, Choose the OS type.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
 
 STEP 2:  Creation and Configuration of our AWS CodeBuild project.
 
@@ -67,25 +61,25 @@ For the source provider, choose "AWS CodePipeline." we will choose Github as our
 
 2.1.1 AWS CodeBuild project creation step 1:
 
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codebuild1.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 2.1.2 AWS CodeBuild project creation step 2:
 
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codebuild2.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 2.1.3 AWS CodeBuild project creation step 3:
 
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codebuild3.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 2.1.4 AWS CodeBuild project created:
 
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codebuild8.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -94,9 +88,15 @@ For the source provider, choose "AWS CodePipeline." we will choose Github as our
 In AWS console, search for system manager and choose parameter store, then create 3 parameters for username, password and the url that will be use in our build spec file to connect Docker hub. Those parameters should matched what is specified in the buildspec file
 as follow :  /myapp/docker-credentials/username, /myapp/docker-credentials/password, /myapp/docker-registry/url.
 
-2.2.1 All 3 parameters  created in AWS system manager:
+2.2.1 Docker's credential parameters configure in our buildspec.yml in file:
 
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/DockerConnectionParameters.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+2.2.2 All 3 parameters  created in parameter store in AWS system manager:
+
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/parameter%20store.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -105,27 +105,32 @@ as follow :  /myapp/docker-credentials/username, /myapp/docker-credentials/passw
 From the aws code build project, select our project and click on start build, we should encounter a failure due to permission missing in our code build service role:
 
 2.3.1 Code build failed due to permission denied, caused by missing policy.
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codebuild%20failed.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-2.3.2 Code build failed due to permission denied due to ....
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+2.3.2 Code build failed due environment privilege enabled needed.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codebuild%20failed4_DockerDaemonPermission%20needed.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-2.3.3 Code build failed due to permission denied due to ....
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+2.3.3 Code build process starting and continuing running through after troubleshooting service role policy added, environment privilege enanled.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/building%20process1.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-2.3.4 Code build successful after troubleshooting service role policy added, environment privilege enabled.
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+2.3.4 Code build successful 1.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/building%20process%20successful1.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-2.3.4 Image pushed to docker hub after project succefull in codebuild.
-<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python-app.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+2.3.5 Code build successful 2.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/building%20process%20successful2.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+2.3.6 Image pushed to docker hub after project succefull in codebuild.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/SimplePuthonApp_pushed%20to%20DockerHub.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -138,28 +143,38 @@ In this step, we'll create an AWS CodePipeline to automate the continuous integr
 From the AWS Management Console, we will navigate to the AWS CodePipeline service, Click on the "Create pipeline" button, Provide a name for our pipeline and click on the "Next" button, 
 
 3.1.1 Creation of our AWS CodePipeline Step 1.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codepipeline%20creation%20step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 For the source stage, select "GitHub" as the source provider, Connect your GitHub account to AWS CodePipeline and select our repository, Choose the branch we want to use for our pipeline,
 
 3.1.2 Creation of our AWS CodePipeline Step 2.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codepipeline%20creation%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
  In the build stage, select "AWS CodeBuild" as the build provider, and select our CodeBuild project we created prewviously "simple-python-app"
 
 3.1.3 Creation of our AWS CodePipeline Step 3.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codepipeline%20creation%20step%203.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 Continue configuring the pipeline stages, such as deploying your application using AWS Elastic Beanstalk or any other suitable deployment option. Review the pipeline configuration and click on the "Create pipeline" button to create your AWS CodePipeline.
 
-3.1.4 AWS codepipeline created.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+3.1.4 AWS codepipeline created and running ongoing.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codepipeline%20creation%20step%204.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+3.1.5 AWS codepipeline cration and running process completed.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codepipeline%20creation%20step%205.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+3.1.6 AWS codepipeline cration and running process completed. 
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codepipeline%20creation%20step%206.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -168,55 +183,69 @@ STEP 4: Trigger the CI Process.
 
 From our github repository, let navigate to the simple python application and simply add a space at the end of the source code as shown below. commit the change.
 
-4.1 Modification in the python app code source: <br/>
+4.1.1 4.1 Modification in the python app code source: <br/>
 
-3.1.1 From the EC2 dasboard, select launch template, provide a name, Choose the OS type.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/triggerprocess1.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 As soon as the change is made in the python source code from our github account, it will trigger the pipeline to start executing
 
 4.1.1 The modification made has triggerred our pipeline to start.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/triggerprocess2.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 Then it will complete the build.
 
-4.1.2 Pipeline executed after change in the python app code source.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+4.1.2 Build Stage is still ongoing after the modification made in github has triggered the pipeline to run.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/triggerprocess3.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+4.1.3 Pipeline executed after change in the python app code source.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/triggerprocess4.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 An new image will be pushed to our docker hub account.
 
-4.1.2 Pipeline executed after change in the python app code source.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+4.1.2 New Image push to docker hub after Pipeline executed following the change made on the python app code source from Github.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/triggerprocess5.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 STEP 5:  Deploy the application on a virtual machine using Codedeploy
+
  From the AWS Web console, navigate to codedeploy and click on create application. 
 
-5.1 Application created in codedeploy.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+5.1 Application creation in codedeploy.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codedeploy%20name.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+An IAM role will be need for our code deploy execution
+
+5.1.1 Creation of Codedeploy role with ec2-instance full access.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/ec2FullAccessAddedTo%20codeploy%20Iam%20Role.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
  
  After creating the application in codedeploy, we need to created the virtual machine on which the application will be deployed. we will make sure we add a Tag name that will be used by codedeploy.
 
 5.2 Virtual machine (EC2 instance) created with Tags name.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/ec2Tags.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 We need to install a codeploy agent on our virtual machine. for that we need to login into the EC2 instance.
 
 5.2.1 Login succesful to the Virtual machine (EC2 instance).
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/ec2%20connection2.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
+
+5.2  Installation of CodeDeploy agent for Ubuntu Server
 
 We will follow the documentation on how to Install the CodeDeploy agent for Ubuntu Server. for that we need to run the following commands:
 
@@ -230,32 +259,30 @@ chmod +x ./install
 sudo ./install auto
 sudo service codedeploy-agent status
 
-5.2.1 Steps to Install the CodeDeploy agent for Ubuntu Server
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
-5.2.2 Agent installation on the EC2 instance step 1.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+5.2.1 Agent installation on the EC2 instance step 1.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codeploy%20agent%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 5.2.2 Agent installed on the EC2 instance and service started.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/codeploy%20agent%20installed.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-5.3 Codeploy Agent installed on the Virtual machine (EC2 instance).
-Now we need to create a role and assign it to our ec2 instance
+5.3 Creation of Code deploy role assigned to the virtual machine EC2
 
-5.3.1 Codedeploy role created and assign to the ec2-instance.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+Now we need to specifically link (assign) the code deploy role we created here above to our ec2 instance.  From the EC2 instance console, we will select our instance, click on action, security, 
+choose modify IAM role and then select the code deploy role created previously and assigned it.
+
+5.3.2 Codedeploy role assigned to our ec2-instance.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/ec2-codeploy-role.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-Now we need to retart the codedeploy agent service on our virtual machine by running the command "sudo service codedeploy-agent restart"
-5.3.2 Agent service on our virtual machine.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+In order for our role modification to take effect, we need to retart the codedeploy agent service on our virtual machine by running the command "sudo service codedeploy-agent restart"
+
+5.3.2 Code deploy agent running after service restart, following the role attached to our virtual machine ec2.
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/AgentRestartOnEc2after%20role%20attached.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -266,34 +293,34 @@ Now we need to setup the connection between codeploy and the virtual machine (EC
 From the codeDeploy console, choose the application we created, and create a deployment group, and provide the arn of the service role we created.
 
 5.5.1 EC2-full access added to the ec2-codeploy role
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/ec2FullAccessAddedTo%20codeploy%20Iam%20Role.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 5.5.1 CodeDeploy DeploymentGroup creation step 1
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/CodeDeploy%20DeploymentGroup%20creation%20step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 5.5.2 CodeDeploy DeploymentGroup creation step 2
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/CodeDeploy%20DeploymentGroup%20creation%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 5.5.3 CodeDeploy DeploymentGroup creation failure Observed
 
 5.5.3.1 CodeDeploy DeploymentGroup creation step 3 (creation failed due to assume role mising.
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/CodeDeploy%20DeploymentGroup%20creation%20step%203.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-5.5.3.2 Add the trust policy to allow AWS Code Deploy service to assume this role. 
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+5.5.3.2 Adding the trust policy to allow AWS Code Deploy service to assume this role. 
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Add%20the%20trust%20policy%20to%20allow%20AWS%20Code%20Deploy%20service%20to%20assume%20this%20role..png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 5.5.3.3 CodeDeploy DeploymentGroup created
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/CodeDeploy%20DeploymentGroup%20created.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -303,28 +330,29 @@ Now that the codeDeploy configuration is complete, we need to create the deploym
 From codedeploy application, select our python application and go to the deployment tab, select the deployment group and connect to our Github account where the repository of the appplication code source is stored.
 
 5.5.4.1 Deployment creation for our application from codeDeploy step 1
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Deployment%20creation%20for%20our%20application%20from%20codeDeploy%20step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 Then provide the repository name and reference the commit ID from that repository on our github account
 
 5.5.4.2 Deployment creation for our application from codeDeploy step 2
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Deployment%20creation%20for%20our%20application%20from%20codeDeploy%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
+
 The remaining options are not needed at this time, simple click on create to finalize our deployemnt creation
-
-5.5.4.3 Deployment creation in progress: Successfully connect to our github
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
 After successfully connecting to the github repository, our deployment will fail. The reason is because it not able to fetch the application source code file.
+
+5.5.4.3 Deployment creation for our application from codeDeploy step 2
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Deployment%20creation%20is%20failing%20after%20connecting%20to%20the%20github%20account.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
 To fix that, the appspec.yml file of our python application needs to be put at the root level of the github directory as shown below:
 
 5.5.4.4 Python app files put at the root level of the github
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/python%20File%20put%20at%20the%20root%20level.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
@@ -332,81 +360,69 @@ The appspec.yml file will run our application, It will connect to our dockerhub 
 Docker will be installed on the vm using the command: sudo apt install docker.io -y.
 
 5.5.4.5 Deployment succesfull completed:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/deployment%20successful.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-5.5.5 CodePipeline Integration with our Codeploy
-
-We need to go our pipeline created earlier, click on edit and  then add a stage for codeploy, reference the deployment group and our python application name.
-
-5.5.5.1 Adding codedploy stage to our pipeline step 1
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
-5.5.5.1 Adding codedploy stage to our pipeline step 2
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
-Now let make a modification to one of our file ( the start_container.sh): add a space
-
-5.5.5.1 Adding a space to our start_container.sh file and commiting the change in our github account:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
-The change made(adding just a space in the file above) will trigger the pipeline and continue until running the codedploy stage
-
-5.5.5.2 Codedeploy stage has triggered our pipeline to run:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
-The codedeploy stage has failed after the build was successfull and the image pushed to dockerhub.
-
-5.5.5.2 Codedeploy stage has failed during the pipeline to running: Not permission to access S3
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
- We need to add the S3 Full access permission to our codepipeline role
-
- 5.5.5.2 S3 Full access permission to our codepipeline role
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
-<br />
-<br />
-
-5.5.5.3 Codedeploy stage has been run and completed in our pipeline:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+5.5.4.6 Deployment succesfull completed:
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/deployment%20successful%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
 STEP 6: Integration of CodeDeply Stage in our Pipeline.
 
-Now from our pipeline, we need to add a stage called "CodeDeploy", make a modification to our source code and watch the the whole pipeline triggered and complete until deployment.
+Now from our pipeline, we need to add a stage called "CodeDeploy", make a modification to our source code and watch the whole pipeline triggers and completes until deployment.
+We need to go our pipeline created earlier, click on edit and  then add a stage for codeploy, reference the deployment group and our python application name.
 
 6.1 Adding Codedeploy stage to our pipeline Step 1:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20Codedeploy%20stage%20to%20our%20pipeline%20Step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-6.1 Adding Codedeploy stage to our pipeline Step 2:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+6.2 Adding Codedeploy stage to our pipeline Step 2:
+<img src="hhttps://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20Codedeploy%20stage%20to%20our%20pipeline%20Step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-6.1 The entire pipeline triggered and completed until deployment Step 1:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+Now let make a modification to one of our file ( the start_container.sh): we will a space in that file and commit the change in our github account
+
+The change made(adding just a space in the file above) will trigger the pipeline and continue until running the codedploy stage
+
+6.3 The change made to the code source has triggered our pipeline to run as show below :
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Codedeploy%20stage%20has%20triggered%20our%20pipeline%20to%20run.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
-6.1 The entire pipeline triggered and completed until deployment Step 2:
-<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="Nessus Essential Home Lab"/>
+The codedeploy stage has failed after the build was successfull and the image pushed to dockerhub.
+
+6.4 Codedeploy stage has failed during the pipeline running: Not permission to access S3
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/Adding%20codedploy%20stage%20to%20our%20pipeline%20step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
 <br />
 <br />
 
+ We need to add the S3 Full access permission to our codepipeline role
+
+6.5 S3 Full access permission to our codepipeline role
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/s3Full%20Access%20Permission%20added.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+After adding s3 permission, we have release the change for our pipeline to run again
+
+6.6 Codedeploy stage has been run and completed in our pipeline:
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/The%20entire%20pipeline%20triggered%20and%20completed%20until%20deployment%20Step%201.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+6.7 The entire pipeline triggered and completed until deployment Step 1:
+<img src="https://github.com/jpap19/VPC-Project-In-Production/blob/main/Images/launch%20Template2.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
+
+6.8 The entire pipeline triggered and completed until deployment Step 2:
+<img src="https://github.com/jpap19/CICD-END-TO-END-Project/blob/main/Screenshots/The%20entire%20pipeline%20triggered%20and%20completed%20until%20deployment%20Step%202.png" height="150%" width="150%" alt="CICD-END-TO-END-Project"/>
+<br />
+<br />
 
 CONCLUSION: <br/>
 
