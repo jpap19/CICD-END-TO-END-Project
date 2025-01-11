@@ -22,7 +22,7 @@ STEP 4: Trigger the CI Process
 
 STEP 5: Deploy the application on a virtual machine using Codedeploy
 
-STEP 6: Integration of CodeDeply Stage in our Pipeline.
+STEP 6: Integrate of Code Deploy Stage in our Pipeline.
 
 This is the high level overview of what we are going to setup in this Project Lab: We will be using codepipeline as an orchestrotor to invoque codebuild to build our application and push it to dockerhub, 
 Then invoque codeploy to deploy the application on a virtual machine
